@@ -1,0 +1,1209 @@
+/* Index */
+
+.index-body {
+  margin: 0;
+  overflow: hidden; /* evita scroll */
+  font-family: 'Poppins', sans-serif;
+}
+
+.index-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1f1f1f;
+  color: #d4af37;
+  background-image: url('../img/nubes-40opacidad.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;       /* mezcla color + imagen */
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-logo img {
+  height: 60px;
+  width: auto;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.header-button a {
+  background-color: #d4af37;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Video ocupa el resto de la pantalla */
+.video-container {
+  height: calc(100vh - 80px); /* Ajusta según la altura real del header */
+  width: 100%;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Se adapta sin deformarse */
+}
+
+/* ---------------------------------------------------------- */
+                    /* LOGIN */
+/* ---------------------------------------------------------- */
+
+/* Fondo general (TODA LA PANTALLA) */
+.login-body {
+  margin: 0;
+  /* Fuente Poppins aplicada a todo el body */
+  font-family: 'Poppins', sans-serif;
+  background-image: url('../img/fondo_escritorio.png');
+  background-size: cover;
+  /* background-position: center; */
+  height: 100vh;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  /* Flexbox para centrar y alinear */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2rem 1rem; /* Padding vertical por si hay scroll y horizontal */
+  box-sizing: border-box;
+  flex-wrap: wrap; /* Para que se apilen si no caben lado a lado */
+  gap: 2rem; /* Espacio entre logo y form */
+}
+
+
+/* Contenedor del Logo (Izquierda) */
+.logo-container-left {
+  position: relative;
+  z-index: 10;
+}
+
+.div-logo { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo (sin cambios) */
+.logo {
+  width: 500px; 
+  height: auto;
+  padding: 0; 
+}
+
+/* Contenedor del Formulario (Derecha) */
+.form-container-right {
+    position: relative;
+    z-index: 10;
+    background-color: #D5B881;
+    background-image: url('../img/nubes-40opacidad.png');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply; /* mezcla color + imagen */
+    border-radius: 20px; 
+    padding: 2.5rem 3.5rem; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px; 
+    box-sizing: border-box;
+  }
+  
+
+/* Formulario (sin cambios) */
+.login-form {
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+/* Título del formulario (con Poppins) */
+.form-title {
+ color: #000;   
+ font-size: 2.5rem;
+ text-align: center; 
+ margin-bottom: 25px;
+ font-weight: bold;
+ font-family: 'Poppins', sans-serif; 
+}
+
+/* Contenedor de cada input */
+.input-field {
+ margin-bottom: 5px; 
+ position: relative; 
+}
+
+/* Iconos */
+.input-icon {
+  position: absolute;
+  left: 18px;
+  top: 25px; 
+  transform: translateY(-50%);
+  color: #888;
+}
+
+/* Inputs */
+.input-field .input {
+  height: 50px;
+  width: 100%;
+  border: 1px solid transparent;
+  outline: none;
+  border-radius: 10px;
+  color: #333;
+  padding: 0 20px 0 45px; 
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  transition: border-color 0.3s ease;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;  /* evita que bloqueen el click en el input */
+  z-index: 5;
+}
+
+
+.input option {
+  color: black; 
+  background-color: white; 
+}
+
+/* Estilo para input inválido */
+.input-field .input.invalid {
+  border: 1px solid #d9534f;
+  background-color: #f8d7da;
+  margin-bottom: 0; /* espacio extra para el mensaje de error */
+}
+
+/* Contenedor para mensajes de error por campo */
+.input-error-message {
+  display: none;              /* oculto al inicio */
+  background-color: #fff;     /* fondo blanco */
+  border: 1px solid #d9534f;  /* borde rojo */
+  color: #d9534f;             /* texto rojo */
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 10px 0 10px 0;  /* margen superior e inferior */
+}
+
+.client-error {
+  display: none;              /* oculto al inicio */
+  background-color: #fff;     /* fondo blanco */
+  border: 1px solid #d9534f;  /* borde rojo */
+  color: #d9534f;             /* texto rojo */
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Cuando hay error, se muestra */
+.input-error-message.active {
+  display: block;
+}
+
+/* Cuando hay error, se muestra */
+.client-error.active {
+  display: block;
+}
+
+
+/* Botón submit */
+.submit {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #313131; 
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-top: 10px;  
+  margin-bottom: 20px; 
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+.submit:hover {
+  background-color: #333; 
+  box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+
+.restaurante_body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../img/fondo_escritorio.png'); /* opcional */
+    background-size: cover;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+.global {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 35em;
+    height: 38em;
+    padding-top: 2em;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+    margin-bottom: 20px;
+}
+
+.row a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 21em;
+    height: 11em;    
+    text-decoration: none;
+    font-weight: bold;
+    border-color: #d4af37;
+    border-style: solid;
+    transition: background-color 0.3s ease;
+    opacity: 0.9;
+}
+#P1,#P2,#P3{
+    background-image: url('../img/restauranteIMGs/patio.jpg');
+    position: relative;
+ 
+}
+#C1,#C2{
+    background-image: url('../img/restauranteIMGs/comedor.jpg');
+    position: relative;
+    
+}
+#PR1,#PR2{
+    background-image: url('../img/restauranteIMGs/priv_type_1.jpg');
+    position: relative;
+
+}
+#PR3,#PR4{
+    background-image: url('../img/restauranteIMGs/priv_type_2.jpg');
+    position: relative;
+
+}
+
+.row a{
+    background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #eec540;
+    text-shadow: 4px 4px 8px #000;
+    
+}
+.row a:hover {
+  transition: background 0.3s ease;
+opacity: 1;
+  color: #ffe5b4;
+}
+.textorows{
+  font-size: xx-large;
+  opacity: 1;
+
+}
+
+.libres{
+  position: absolute;
+  top:80%;
+  color: rgb(22, 223, 22);
+}
+
+/* camareros */
+
+.body-camareros {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('../img/fondo_escritorio.png');
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  color: #d4af37;
+}
+
+.table-camareros {
+  width: min(800px, 90%);
+  border: 1px #d4af37 solid;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+/* Fondo general */
+.body-restaurante {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('../img/fondo_escritorio.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+/* Estilo general de los enlaces */
+.salas {
+  display: inline-block;
+  text-decoration: none;
+  color: #d9534f;                     /* Rojo elegante */
+  background-color: #fff;             /* Fondo blanco */
+  border: 2px solid #d4af37;          /* Borde dorado */
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  transition: all 0.3s ease;  
+}
+
+/* Hover */
+.salas:hover {
+  background-color: #d9534f;          /* Fondo rojo */
+  color: #fff;                        /* Texto blanco */
+  box-shadow: 0 0 15px rgba(217, 83, 79, 0.8); /* Brillo rojo */
+  transform: scale(1.05);
+}
+
+/* ======================================
+   HISTORIAL – ESTILO TRADICIONAL
+====================================== */
+.historial-tori {
+  background-image: url('../img/fondo_historial.png');
+  background-size: 100% 100%;   /* Se estira al ancho y alto del div */
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
+
+
+
+.historial-titulo {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  padding-top: 5%;
+  padding-right: 2%; 
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.filterbar{
+  padding-top: 4%;
+  color: #000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+/* ============================
+   FILTROS FIJOS (ARRIBA)
+============================ */
+.filterbar {
+  position: sticky;
+  top: 12px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-bottom: 2%;
+  
+}
+#mesa, #fecha, #camarero,#sala{
+  border-radius: 5px;
+}
+.buttonfilterbar{
+  margin-left: 2%;
+    border-radius: 5px;
+    width: 12%;
+    height: 80%;
+    background-color:#b89f5b;
+    
+}
+.buttonfilterbar:hover{
+
+    background-color:#d4af37; 
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+.filtro-form{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 90%;
+  padding-left: 10%;
+  margin-bottom: 1%;
+  gap: 10px;
+
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;/* Esto ahora empuja los botones al final de la fila */
+}
+
+.filter-buttons button {
+    flex: 1; /* Ambos botones iguales */
+}
+
+.historial-container{
+  height: 50vh;
+  width: min(1100px, 90%);
+  margin: 0 auto;
+  max-height: calc(85vh - 330px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 10%;
+  scrollbar-gutter: stable both-edges;
+  
+}
+
+/* ESTADOS DE OCUPACIÓN */
+.historial-content[data-estado="ocupada"] {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+}
+
+.historial-content[data-estado="libre"] {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.08);
+}
+
+.historial-content b,
+.historial-content strong {
+  font-weight: 700;
+  color: #000;
+}
+
+.filterbar label {
+  font-weight: bold;
+  color: #2b1c06;
+}
+
+.filterbar select,
+.filterbar input[type="date"] {
+  border: 1px solid #b88f4e00;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: #fffdf8;
+  color: #222;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.filterbar .botones-filtro button {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filterbar .botones-filtro button[type="submit"] {
+  background-color: #b33a2f00;
+  color: #000000;
+}
+
+.filterbar .botones-filtro button[type="submit"]:hover {
+  background-color: #8f2e2300;
+}
+
+.filterbar .botones-filtro button[type="reset"] {
+  background-color: #d5b88100;
+  color: #000;
+}
+
+.filterbar .botones-filtro button[type="reset"]:hover {
+  background-color: #caa86d00;
+}
+
+/* ============================
+   CONTENEDOR DE REGISTROS
+============================ */
+
+
+/* Scrollbar personalizado */
+.historial-container::-webkit-scrollbar {
+  width: 10px;
+}
+.historial-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.historial-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+/* ============================
+   ELEMENTOS DE REGISTRO
+============================ */
+.historial-content {
+  display: flex;
+  margin: 8px 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #2b1c06;
+  line-height: 1.45;
+  font-weight: 500;
+
+  border: 3px solid #b89f5b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  gap: 10px 18px;
+  width: 85%;
+}
+
+
+
+/* ESTADOS DE OCUPACIÓN */
+.dato[data-estado="ocupada"] {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+}
+
+.historial-content[data-estado="libre"] {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.08);
+}
+
+.historial-content b,
+.historial-content strong {
+  font-weight: 700;
+  color: #000;
+}
+
+/* ============================
+   FOOTER
+============================ */
+
+/* Footer general */
+.main-footer {
+  position: fixed;
+  z-index: 10;
+  background-color: #1f1f1f;               /*Fondo oscuro*/
+  background-image: url('../img/nubes-40opacidad.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;           /* mezcla color + imagen */
+  color: #d4af37;                          /* Dorado */
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
+}
+
+/* Sección izquierda con iconos */
+.footer-left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Botones/iconos dorados */
+.icon-footer {
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.icon-footer:hover {
+  transform: scale(1.2);
+}
+
+/* Texto centrado absoluta y visualmente */
+.footer-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #d4af37;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Contenedor del logo en el footer */
+.footer-right {
+  position: absolute;
+  top: -80px;                     /* Eleva el logo por encima del footer */
+  left: 90%;                      /* Punto central de la pantalla */
+  transform: translateX(-50%);    /* Centra el logo horizontalmente */
+  z-index: 101;
+}
+
+/* Logo sobresaliente y grande */
+.footer-logo {
+  height: 150px;                  /* Tamaño grande */
+  width: auto;
+  max-width: 90vw;                /* Nunca se sale del ancho de pantalla */
+}
+
+/* ============================
+   SALA – NAMESPACE
+============================ */
+.sala-page .sala-layout {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+}
+
+/* Panel lateral */
+.sala-page .sala-side {
+  background: #00000033;
+  color: #eee;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.sala-page .sala-title {
+  margin: 0 0 6px;
+}
+
+.sala-page .sala-welcome {
+  margin: 4px 0 12px;
+}
+
+.sala-page .sala-pill {
+  display: inline-block;
+  background: #00000044;
+  border-radius: 8px;
+  padding: .35rem .6rem;
+  margin: 0 6px 6px 0;
+}
+
+/* Tabla lateral */
+.sala-page .sala-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.sala-page .sala-table th {
+  background: #00000066;
+  color: #fff;
+  padding: 8px;
+  text-align: left;
+}
+
+.sala-page .sala-table td {
+  background: #00000022;
+  color: #fff;
+  padding: 8px;
+  border-bottom: 1px solid #00000033;
+}
+
+.sala-page .sala-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  line-height: 1;
+  font-size: 0.95rem;
+}
+.sala-page .sala-badge--libre   { background:#2ecc71; color:#102b17; }
+.sala-page .sala-badge--ocupada { background:#e74c3c; color:#2b0f0c; }
+
+
+/* Tablero */
+.sala-page .sala-board {
+  position: relative;
+  aspect-ratio: 16/9;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.sala-page .sala-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Columnas verticales */
+.sala-page .sala-col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0,0,0,.45);
+}
+.sala-page .sala-col--1 { left:25%; }
+.sala-page .sala-col--2 { left:50%; }
+.sala-page .sala-col--3 { left:75%; }
+
+/* Mesas (formularios) */
+.sala-page .sala-mesa {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.sala-page .sala-mesaBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.sala-page .sala-mesaBtn img {
+  width: 150px;
+  height: auto;
+}
+
+/* Posiciones por data-id */
+/* === PATIO (8 mesas, 4 columnas x 2 filas) === */
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(1) { top:18%; left:12%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(2) { top:18%; left:38%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(3) { top:18%; left:62%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(4) { top:18%; left:88%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(5) { top:78%; left:12%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(6) { top:78%; left:38%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(7) { top:78%; left:62%; }
+.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(8) { top:78%; left:88%; }
+
+.sala-page .layout--patio .sala-mesaBtn img { width: 150px; }
+
+/* === COMEDOR (8 mesas, 4 columnas x 2 filas, mesas más anchas) === */
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(1) { top:20%; left:14%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(2) { top:20%; left:36%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(3) { top:20%; left:64%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(4) { top:20%; left:86%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(5) { top:80%; left:14%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(6) { top:80%; left:36%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(7) { top:80%; left:64%; }
+.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(8) { top:80%; left:86%; }
+
+.sala-page .layout--comedor .sala-mesaBtn img { width: 180px; }
+
+/* === PRIVADOS 1 y 2 (1 mesa grande horizontal centrada) === */
+.sala-page .layout--priv12 .sala-canvas form.sala-mesa:nth-of-type(1) { top:50%; left:50%; }
+
+.sala-page .layout--priv12 .sala-mesaBtn img { width: 420px; } /* ajusta si quieres más/menos grande */
+
+/* === PRIVADOS 3 y 4 (2 mesas largas verticales, centradas) === */
+.sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(1) { top:50%; left:30%; }
+.sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(2) { top:50%; left:70%; }
+
+/* más grandes que las de patio/comedor */
+.sala-page .layout--priv34 .sala-mesaBtn img { width: 260px; }
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+@media (max-width: 1024px) {
+  .filterbar {
+    width: 95%;
+  }
+  
+  .sala-page .sala-layout { 
+    grid-template-columns: 1fr; }
+  
+    .footer-right {
+  position: absolute;
+  top: -80px;
+  left: 85%;
+  transform: translateX(-50%);
+  z-index: 101;
+  }
+}
+
+/* Responsive: enlaces ocupan todo el ancho en móvil */
+@media (max-width: 768px) {
+  a {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+
+  }
+   .historial-titulo {
+    font-size: 2.2rem;
+  }
+  .filterbar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 5px;
+  }
+  .historial-container {
+    max-height: calc(100vh - 380px);
+    margin-left: -10px;
+  }
+  
+  .filtro-form {
+      display: grid;
+      grid-template-columns: 30% 68%; /* label + input */
+      column-gap: 4%;
+      row-gap: 4px;
+      width: 80%;
+      align-items: center;
+  }
+
+  .filtro-form label {
+      justify-self: end; /* etiqueta alineada a la derecha */
+      font-size: 0.8rem;
+      margin: 0;
+  }
+
+  .filtro-form select,
+  .filtro-form input[type="date"] {
+      width: 100%;  /* ocupa su columna */
+      font-size: 0.85rem;
+      padding: 3px 5px;
+      box-sizing: border-box;
+  }
+
+  .filter-buttons {
+      grid-column: 1 / -1; /* ocupa las dos columnas */
+      display: flex;
+      gap: 4px;
+  }
+
+  .filter-buttons button {
+      flex: 1;
+      font-size: 0.85rem;
+      padding: 4px 0;
+  }
+  .historial-titulo {
+      margin-top: 2rem;   /* sube el título */
+      padding-top: 0;       /* elimina padding extra */
+      font-size: 2rem;      /* opcional: un poco más pequeño si quieres compactar */
+      margin-bottom: 5px;
+  }
+
+  /* ------------------------------
+  INDEX 
+  ------------------------------ */
+  .index-header {
+    padding: 0.8rem 1rem;
+  }
+
+  .header-title {
+    display: none; /* Oculta el texto */
+  }
+
+  .login-text {
+    display: none; /* Oculta el texto */
+  }
+
+  .header-button a {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1.5rem;
+    color: #d4af37;
+  }
+
+  .header-button a::before {
+    content: "\f2f6"; /* Font Awesome icon: fa-sign-in-alt */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.3rem;
+  }
+
+  .header-button a:hover {
+    color: #ffe5b4;
+  }
+  
+  /* ------------------------------ */
+             /* RESTAURANTE */ 
+  /* ------------------------------ */
+.restaurante_body {
+
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../img/fondo_movil.png'); /* opcional */
+    background-size: cover;
+    display: flex;
+
+  }
+  .global {
+    display: inline-block;
+    width: 90%;
+    height: auto;
+    padding-top: 5%;
+    border-right: 30%;
+    padding-left: 5%;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+.row {
+    display: grid;
+    gap: 0em;
+    margin: 0em;
+    margin-right: 5%; 
+}
+.libres{
+  top:45%;
+  left: 80%;
+  color: rgb(22, 223, 22);
+}
+
+#P1,#P2,#P3{
+    background-image: url('../img/restauranteIMGs/patio.jpg');
+    position: relative;
+    height: 4em;
+    display: flex;
+}
+#C1,#C2{
+    background-image: url('../img/restauranteIMGs/comedor.jpg');
+    position: relative;
+  height: 4em;
+  display: flex;
+}
+#PR1,#PR2{
+    background-image: url('../img/restauranteIMGs/priv_type_1.jpg');
+    position: relative;
+ height: 4em;
+ display: flex;
+}
+#PR3,#PR4{
+    background-image: url('../img/restauranteIMGs/priv_type_2.jpg');
+    position: relative;
+ height: 4em;
+  display: flex;
+}
+
+  /* ============================
+   SALA - RESPONSIVE MÓVIL
+  ============================ */
+
+  /* Layout principal: cambiar a columna única */
+  .body-restaurante{
+    background-image: url('../img/Fondo_movil.png');
+    background-attachment: fixed;
+    padding-bottom: 80px;
+  }
+  .sala-page .sala-layout {
+    grid-template-columns: 1fr;
+    padding: 8px;
+    gap: 12px;
+  }
+
+  /* Panel lateral: hacer más compacto */
+  .sala-page .sala-side {
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.6);
+    order: 2; /* Mover después del tablero */
+  }
+
+  .sala-page .sala-title {
+    font-size: 1.5rem;
+    margin: 0 0 8px;
+  }
+
+  .sala-page .sala-welcome {
+    font-size: 0.9rem;
+    margin: 4px 0 10px;
+  }
+
+  /* Pills más pequeñas */
+  .sala-page .sala-pill {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    margin: 0 4px 4px 0;
+  }
+
+  /* Tabla lateral: scroll horizontal si es necesario */
+  .sala-page .sala-table {
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sala-page .sala-table th,
+  .sala-page .sala-table td {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+
+  /* Tablero: orden primero */
+  .sala-page .sala-board {
+    order: 1;
+    aspect-ratio: 4/3;
+    border-radius: 8px;
+  }
+
+  /* Columnas verticales más sutiles */
+  .sala-page .sala-col {
+    width: 1px;
+    background: rgba(0,0,0,.25);
+  }
+
+  /* PATIO: reducir tamaño de mesas */
+  .sala-page .layout--patio .sala-mesaBtn img {
+    width: 80px;
+  }
+
+  /* Reposicionar mesas del patio */
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(1) { top:15%; left:12%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(2) { top:15%; left:38%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(3) { top:15%; left:62%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(4) { top:15%; left:88%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(5) { top:85%; left:12%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(6) { top:85%; left:38%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(7) { top:85%; left:62%; }
+  .sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(8) { top:85%; left:88%; }
+
+  /* COMEDOR: reducir tamaño de mesas */
+  .sala-page .layout--comedor .sala-mesaBtn img {
+    width: 95px;
+  }
+
+  /* Reposicionar mesas del comedor */
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(1) { top:18%; left:14%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(2) { top:18%; left:36%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(3) { top:18%; left:64%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(4) { top:18%; left:86%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(5) { top:82%; left:14%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(6) { top:82%; left:36%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(7) { top:82%; left:64%; }
+  .sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(8) { top:82%; left:86%; }
+
+  /* PRIVADOS 1 y 2: reducir tamaño */
+  .sala-page .layout--priv12 .sala-mesaBtn img {
+    width: 220px;
+  }
+
+  /* PRIVADOS 3 y 4: reducir tamaño */
+  .sala-page .layout--priv34 .sala-mesaBtn img {
+    width: 140px;
+  }
+
+  /* Reposicionar mesas privados 3-4 */
+  .sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(1) { top:50%; left:28%; }
+  .sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(2) { top:50%; left:72%; }
+
+
+  .sala-table{
+    margin-bottom: 30px;
+  }
+
+/* ------------------------------ */
+           /* FOOTER */
+/* -------------------------- */
+
+/* Ajustes para pantallas pequeñas */
+
+  .main-footer {
+    flex-direction: grid;   /* Apila los elementos */
+    align-items: center;      /* Centra todo horizontalmente */
+    padding: 0.2rem 2rem;
+    text-align: center;
+  }
+
+  .icon-footer {
+    font-size: 1.2rem;
+  }
+
+  .footer-center {
+    display: none;            /* Oculta el nombre */
+  }
+
+  .footer-right {
+    position: static;         /* Quita absolute */
+    transform: none;
+    display: flex;
+    justify-content: center;  /* Centra el logo */
+    width: 100%;              /* Ocupa todo el ancho para centrar */
+  }
+
+  .footer-logo {
+    height: 70px;
+    max-width: 60vw;
+  }
+}
+
+/* Ajustes para movil */
+@media (max-width: 850px) {
+  .login-body {
+    background-image: url('../img/Fondo_movil.png');
+    flex-direction: grid;       /* Logo arriba, form debajo */
+    justify-content: center;      /* Centra verticalmente */
+    align-items: center;          /* Centra horizontalmente */
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  /* Logo con brillo */
+  .logo {
+    width: clamp(200px, 25vw, 500px); /* Adaptable */
+    height: auto;
+    padding: 0;
+
+    /* Brillo exterior */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+  }
+
+
+  /* Form centrado */
+  .form-container-right {
+    width: 100%;
+    /* max-width: 450px; */
+    margin: 0 auto;               /* Centrado horizontal */
+    padding: 1rem 1.5rem;
+  }
+  
+  .historial-content {
+    display: block;
+    margin: 8px 15px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #2b1c06;
+    line-height: 1.45;
+    font-weight: 500;
+    border: 3px solid #b89f5b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    gap: 10px 18px;
+    width: 70%;
+  }
+}
+
+
