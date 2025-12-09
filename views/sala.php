@@ -54,21 +54,9 @@ foreach ($mesas as $m)
     if ($m['estado'] === 'ocupado') $ocupadas++;
 $libres = $total - $ocupadas;
 
-/* -------- FUNCION IMG MESA -------- */
-// Devuelve la ruta de la imagen de la mesa según capacidad y estado
-function imgMesa($cap, $estado) {
-    $estado = ($estado === 'ocupado') ? 'ocupada' : 'libre';
-    return "../img/mesas/mesa_{$cap}_{$estado}.png";
-}
-
 /* -------- FONDO -------- */
-// Seleccionamos fondo según el nombre de la sala
-$nombreSala = strtolower($sala['nombre']);
+// Usamos fondo de piedra para todas las salas
 $bg = '../img/fondo_piedra.jpg';
-if ($nombreSala === "comedor 1" || $nombreSala === "comedor 2") 
-    $bg = '../img/fondo_madera.jpg';
-if (in_array($nombreSala, ["privado 1","privado 2","privado 3","privado 4"], true)) 
-    $bg = '../img/fondo_madera.jpg';
 
 /* -------- LAYOUT -------- */
 // Definimos la clase CSS del layout según el tipo de sala
@@ -159,18 +147,21 @@ else
             <span class="sala-col sala-col--2"></span>
             <span class="sala-col sala-col--3"></span>
 
-            <!-- Renderizamos cada mesa como un formulario con botón -->
+            <!-- Renderizamos cada mesa como un formulario con div -->
             <?php foreach ($mesas as $m){
                 $cap = (int)$m['capacidad'];
-                $src = imgMesa($cap, $m['estado']); // Imagen según capacidad y estado
+                $estadoClass = ($m['estado'] === 'ocupado') ? 'ocupado' : 'disponible';
             ?>
             <form method="post" action="../proc/toggle_mesa.php" class="sala-mesa" data-id="<?= (int)$m['id_mesa'] ?>">
                 <!-- Campos ocultos para identificar sala y mesa -->
                 <input type="hidden" name="sala" value="<?= (int)$salaId ?>">
                 <input type="hidden" name="toggle" value="<?= (int)$m['id_mesa'] ?>">
-                <!-- Botón con imagen de la mesa -->
-                <button type="submit" class="sala-mesaBtn" title="Cambiar estado">
-                    <img src="<?= htmlspecialchars($src) ?>" alt="Mesa <?= (int)$m['id_mesa'] ?>">
+                <!-- Div con información de la mesa -->
+                <button type="submit" class="sala-mesaBtn <?= $estadoClass ?>" title="Cambiar estado">
+                    <div class="mesa-info">
+                        <div class="mesa-numero">Mesa #<?= (int)$m['id_mesa'] ?></div>
+                        <div class="mesa-sillas"><?= (int)$cap ?> sillas</div>
+                    </div>
                 </button>
             </form>
             <?php } ?>

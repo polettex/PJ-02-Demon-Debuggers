@@ -20,12 +20,11 @@
   <a href="../views/restaurante.php" class="icon-footer">
     <i class="fas fa-chevron-left"></i>
   </a>
-  <a href="../views/camareros.php" class="icon-footer">
-    <i class="fas fa-users"></i>
+  <?php if (isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == 4): ?>
+  <a href="../views/trabajadores.php" class="icon-footer" title="Gestión de Trabajadores">
+    <i class="fas fa-user-cog"></i>
   </a>
-  <a href="../views/register.php" class="icon-footer">
-    <i class="fas fa-user-plus"></i>
-  </a>
+  <?php endif; ?>
 </div>
   <div class="footer-center">
     Demon Deburgers

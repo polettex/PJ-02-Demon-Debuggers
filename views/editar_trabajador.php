@@ -8,6 +8,35 @@ if (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 4) {
     exit;
 }
 
+// Obtener ID del trabajador a editar
+$idEditar = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+if ($idEditar <= 0) {
+    header('Location: trabajadores.php');
+    exit;
+}
+
+// Prevenir que el admin se edite a sí mismo
+if ($idEditar == $_SESSION['id_camarero']) {
+    header('Location: trabajadores.php?error=no_auto_editar');
+    exit;
+}
+
+// Obtener datos del trabajador
+try {
+    $stmtTrabajador = $conn->prepare('SELECT * FROM usuarios WHERE id_usuario = ?');
+    $stmtTrabajador->execute([$idEditar]);
+    $trabajador = $stmtTrabajador->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$trabajador) {
+        header('Location: trabajadores.php?error=no_encontrado');
+        exit;
+    }
+} catch (Exception $e) {
+    header('Location: trabajadores.php?error=db_error');
+    exit;
+}
+
 // Obtener roles disponibles
 try {
     $stmtRoles = $conn->prepare('SELECT id_rol, nombre FROM roles ORDER BY id_rol ASC');
@@ -22,7 +51,7 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrar Usuario</title>
+  <title>Editar Usuario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -40,12 +69,15 @@ try {
     <div class="form-container-right">
 
     <div id="loginFormContainer">
-        <form id="registerForm" action="../proc/proc_register.php" method="post" class="login-form" novalidate>
-            <h2 class="form-title">Nuevo Usuario</h2>
+        <form id="editForm" action="../proc/proc_editar_trabajador.php" method="post" class="login-form" novalidate>
+            <h2 class="form-title">Editar Usuario</h2>
+
+            <input type="hidden" name="id_usuario" value="<?= (int)$trabajador['id_usuario'] ?>">
 
             <div class="input-field">
                 <span class="input-icon"><i class="fas fa-user"></i></span>
-                <input class="input" type="text" id="name" name="name" placeholder="Nombre">
+                <input class="input" type="text" id="name" name="name" placeholder="Nombre" 
+                       value="<?= htmlspecialchars($trabajador['nombre']) ?>">
                 <div id="nameError" class="input-error-message 
                     <?php 
                         if (isset($_GET['nombreVacio']) || isset($_GET['nombreMal'])) {
@@ -63,7 +95,8 @@ try {
 
             <div class="input-field">
                 <span class="input-icon"><i class="fas fa-user"></i></span>
-                <input class="input" type="text" id="apellido" name="apellido" placeholder="Apellido">
+                <input class="input" type="text" id="apellido" name="apellido" placeholder="Apellido"
+                       value="<?= htmlspecialchars($trabajador['apellidos']) ?>">
                 <div id="apellidoError" class="input-error-message 
                     <?php 
                         if (isset($_GET['apellidoVacio']) || isset($_GET['apellidoMal'])) {
@@ -81,36 +114,26 @@ try {
 
             <div class="input-field">
                 <span class="input-icon"><i class="fas fa-user"></i></span>
-                <input class="input" type="text" id="username" name="username" placeholder="Usuario">
-                <div id="usernameError" class="input-error-message 
-                    <?php 
-                        if (isset($_GET['usernameVacio']) || isset($_GET['usernameIncorrecto']) || (isset($_GET['error']) && $_GET['error'] === 'usuario_incorrecto')) {
-                        echo 'active';} 
-                    ?>">
-                    <?php
-                        if (isset($_GET['usernameVacio'])) {
-                            echo "El nombre de usuario no puede estar vacío";
-                        } elseif (isset($_GET['usernameMal'])) {
-                            echo "El nombre de usuario solo puede contener letras y números";
-                        } elseif (isset($_GET['usernameIncorrecto']) || (isset($_GET['error']) && $_GET['error'] === 'usuario_incorrecto')) {
-                            echo "El nombre de usuario ya está en uso";
-                        }
-                    ?>
-                </div>
+                <input class="input" type="text" id="username" name="username" placeholder="Usuario" 
+                       value="<?= htmlspecialchars($trabajador['user']) ?>" readonly>
+                <small style="color: #666; font-size: 0.85rem; display: block; margin-top: 5px;">
+                    El nombre de usuario no se puede modificar
+                </small>
             </div>
 
             <div class="input-field">
                 <span class="input-icon"><i class="fas fa-lock"></i></span>
-                <input class="input" type="password" id="password" name="password" placeholder="Contraseña">
+                <input class="input" type="password" id="password" name="password" placeholder="Nueva Contraseña (opcional)">
+                <small style="color: #666; font-size: 0.85rem; display: block; margin-top: 5px;">
+                    Dejar en blanco para mantener la contraseña actual
+                </small>
                 <div id="passwordError" class="input-error-message 
                         <?php 
-                            if (isset($_GET['passwordVacio']) || (isset($_GET['passwordCorta']))) {
+                            if (isset($_GET['passwordCorta'])) {
                             echo 'active';} 
                         ?>">
                         <?php
-                            if (isset($_GET['passwordVacio'])) {
-                                echo "La contraseña no puede estar vacía";
-                            } elseif (isset($_GET['passwordCorta'])) {
+                            if (isset($_GET['passwordCorta'])) {
                                 echo "La contraseña debe tener al menos 6 caracteres";
                             }
                         ?>
@@ -119,17 +142,15 @@ try {
 
             <div class="input-field">
                 <span class="input-icon"><i class="fas fa-lock"></i></span>
-                <input class="input" type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar Contraseña">
+                <input class="input" type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar Nueva Contraseña">
                 <div id="confirmPasswordError" class="input-error-message 
                         <?php 
-                            if (isset($_GET['passwordVacio']) || (isset($_GET['passwordIncorrecta']))) {
+                            if (isset($_GET['passwordIncorrecta'])) {
                             echo 'active';} 
                         ?>">
                         <?php
-                            if (isset($_GET['passwordVacio'])) {
-                                echo "La contraseña no puede estar vacía";
-                            } elseif (isset($_GET['passwordIncorrecta'])) {
-                                echo "Contraseña no coinciden";
+                            if (isset($_GET['passwordIncorrecta'])) {
+                                echo "Las contraseñas no coinciden";
                             }
                         ?>
                     </div>
@@ -140,7 +161,8 @@ try {
                 <select class="input" id="id_rol" name="id_rol" required>
                     <option value="">Seleccionar rol...</option>
                     <?php foreach ($roles as $rol): ?>
-                        <option value="<?= (int)$rol['id_rol'] ?>">
+                        <option value="<?= (int)$rol['id_rol'] ?>" 
+                                <?= ($trabajador['id_rol'] == $rol['id_rol']) ? 'selected' : '' ?>>
                             <?= htmlspecialchars($rol['nombre']) ?>
                         </option>
                     <?php endforeach; ?>
@@ -158,7 +180,7 @@ try {
                 </div>
             </div>
 
-            <button class="submit" type="submit" name="login">Registrar</button>
+            <button class="submit" type="submit" name="editar">Actualizar Usuario</button>
             <div id="clientErrorLogin" class="client-error" aria-live="polite"></div>
         </form>
 
@@ -168,6 +190,5 @@ try {
     </div>
 
     </div>
-    <script type="text/javascript" src="../proc/proc_register.js"></script>
 </body>
 </html>
