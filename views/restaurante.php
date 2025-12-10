@@ -1,6 +1,21 @@
 <?php
     include_once('../includes/header.php');
+    include_once('../includes/conexion.php');
     include('../proc/proc_restaurante.php');
+    
+    // Obtener todas las salas desde la base de datos
+    try {
+        $stmtSalas = $conn->prepare('
+            SELECT id_recurso, nombre, imagen 
+            FROM recursos 
+            WHERE tipo = "sala" 
+            ORDER BY id_recurso ASC
+        ');
+        $stmtSalas->execute();
+        $salas = $stmtSalas->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        $salas = [];
+    }
 ?>
     <!DOCTYPE html>
 <html lang="en">
@@ -12,25 +27,39 @@
 </head>
 <body class="restaurante_body">
     <div class="global">
-        <div class="row">
-            <a href="sala.php?sala=1" name="item" id="P1"><div class="textorows">Patio 1</div><div class="libres"><?php echo mesasOcupadas(1);?></div></a>
-            <a href="sala.php?sala=2" name="item" id="P2"><div class="textorows">Patio 2</div><div class="libres"><?php echo mesasOcupadas(2);?></div></a>
-            <a href="sala.php?sala=3" name="item" id="P3"><div class="textorows">Patio 3</div><div class="libres"><?php echo mesasOcupadas(3);?></div></a>
-        </div>
-        <div class="row">
-            <a href="sala.php?sala=4" name="item" id="C1"><div class="textorows">Comedor 1</div><div class="libres"><?php echo mesasOcupadas(4);?></div></a>
-            <a href="sala.php?sala=5" name="item" id="C2"><div class="textorows">Comedor 2</div><div class="libres"><?php echo mesasOcupadas(5);?></div></a>
-            <a href="sala.php?sala=6" name="item" id="PR1"><div class="textorows">Priv 1</div><div class="libres"><?php echo mesasOcupadas(6);?></div></a>
-        </div>
-        <div class="row" id="lastrow">
-            <a href="sala.php?sala=7" name="item" id="PR2"><div class="textorows">Priv 2</div><div class="libres"><?php echo mesasOcupadas(7);?></div></a>
-            <a href="sala.php?sala=8" name="item" id="PR3"><div class="textorows">Priv 3</div><div class="libres"><?php echo mesasOcupadas(8);?></div></a>
-            <a href="sala.php?sala=9" name="item" id="PR4"><div class="textorows">Priv 4</div><div class="libres"><?php echo mesasOcupadas(9);?></div></a>
-        </div>
+        <?php if (count($salas) > 0): ?>
+            <?php 
+            // Dividir salas en grupos de 3 para las filas
+            $chunks = array_chunk($salas, 3);
+            $totalChunks = count($chunks);
+            ?>
+            <?php foreach ($chunks as $index => $chunk): ?>
+                <div class="row<?= ($index === $totalChunks - 1) ? ' ' : '' ?>" <?= ($index === $totalChunks - 1) ? 'id="lastrow"' : '' ?>>
+                    <?php foreach ($chunk as $sala): ?>
+                        <a href="sala.php?sala=<?= (int)$sala['id_recurso'] ?>" 
+                           name="item" 
+                           id="sala_<?= (int)$sala['id_recurso'] ?>"
+                           <?php if (!empty($sala['imagen'])): ?>
+                           style="background-image: url('../img/salas/<?= htmlspecialchars($sala['imagen']) ?>');"
+                           <?php endif; ?>>
+                            <div class="textorows"><?= htmlspecialchars($sala['nombre']) ?></div>
+                            <div class="libres"><?php echo mesasOcupadas($sala['id_recurso']); ?></div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="no-salas">
+                <p style="color: #d4af37; font-size: 1.5rem; text-align: center; margin-top: 3rem;">
+                    <i class="fas fa-exclamation-circle"></i><br>
+                    No hay salas disponibles.<br>
+                    <small style="font-size: 0.8rem;">Los administradores pueden crear salas desde Gestión de Recursos.</small>
+                </p>
+            </div>
+        <?php endif; ?>
     </div>   
     <?php
     include_once('../includes/footer.php');
 ?> 
 </body>
 </html>
-

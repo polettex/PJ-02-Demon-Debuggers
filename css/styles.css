@@ -245,22 +245,27 @@
 .restaurante_body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background-image: url("../img/fondo_escritorio.png"); /* opcional */
+  background-image: url("../img/fondo_escritorio.png");
   background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+  overflow-y: auto;
 }
 .global {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 35em;
-  height: 38em;
+  min-height: 35em;
+  padding-bottom: 100px;
   padding-top: 2em;
 }
+
 
 .row {
   display: flex;
@@ -310,6 +315,7 @@
   background-repeat: no-repeat;
   color: #eec540;
   text-shadow: 4px 4px 8px #000;
+  position: relative;
 }
 .row a:hover {
   transition: background 0.3s ease;
@@ -323,8 +329,14 @@
 
 .libres {
   position: absolute;
-  top: 80%;
+  bottom: 10px;
+  right: 10px;
   color: rgb(22, 223, 22);
+  font-weight: bold;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 /* camareros */
@@ -1789,5 +1801,78 @@
   .btn-new-user {
     width: 100%;
   }
+}
+
+/* Badges para tipos de recursos */
+.tipo-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.tipo-badge.tipo-sala {
+  background: #3498db;
+  color: #fff;
+}
+
+.tipo-badge.tipo-mesa {
+  background: #9b59b6;
+  color: #fff;
+}
+
+.tipo-badge.tipo-silla {
+  background: #e67e22;
+  color: #fff;
+}
+
+/* Badges para estados */
+.estado-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.estado-badge.estado-libre {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.estado-badge.estado-ocupado {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* Salas con imágenes de fondo */
+.row a[style*="background-image"] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.row a[style*="background-image"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.row a[style*="background-image"] .textorows,
+.row a[style*="background-image"] .libres {
+  z-index: 2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.row a[style*="background-image"] .textorows {
+  position: relative;
 }
 

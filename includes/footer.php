@@ -24,6 +24,9 @@
   <a href="../views/trabajadores.php" class="icon-footer" title="Gestión de Trabajadores">
     <i class="fas fa-user-cog"></i>
   </a>
+  <a href="../views/recursos.php" class="icon-footer" title="Gestión de Recursos">
+    <i class="fas fa-boxes"></i>
+  </a>
   <?php endif; ?>
 </div>
   <div class="footer-center">

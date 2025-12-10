@@ -32,7 +32,9 @@ try {
 try {
     // Obtenemos todas las mesas de la sala usando la tabla de jerarquía
     $stmtMesas = $conn->prepare('
-        SELECT r.id_recurso as id_mesa, r.capacidad, r.estado 
+        SELECT r.id_recurso as id_mesa, r.nombre, r.capacidad, r.estado, 
+               COALESCE(r.posicion_x, 50.00) as posicion_x, 
+               COALESCE(r.posicion_y, 50.00) as posicion_y
         FROM recursos r
         INNER JOIN recursos_jerarquia rh ON r.id_recurso = rh.id_recurso_hijo
         WHERE rh.id_recurso_padre = ? 
@@ -80,6 +82,7 @@ else
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars($sala['nombre']) ?> — Demon Deburgers</title>
 <link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/mesas_arrastrables.css">
 </head>
 <body class="body-restaurante sala-page">
     <div class="sala-layout">
@@ -141,33 +144,45 @@ else
 
     <!-- TABLERO: representación gráfica de las mesas -->
     <section class="sala-board <?= $layoutClass ?>" style="background-image:url('<?= htmlspecialchars($bg) ?>')">
-        <div class="sala-canvas">
-            <!-- Columnas del tablero -->
-            <span class="sala-col sala-col--1"></span>
-            <span class="sala-col sala-col--2"></span>
-            <span class="sala-col sala-col--3"></span>
-
-            <!-- Renderizamos cada mesa como un formulario con div -->
+        <div class="sala-canvas" id="salaCanvas">
+            <!-- Renderizamos cada mesa como un div arrastrable -->
             <?php foreach ($mesas as $m){
                 $cap = (int)$m['capacidad'];
                 $estadoClass = ($m['estado'] === 'ocupado') ? 'ocupado' : 'disponible';
+                
+                // Validar y corregir posiciones para evitar que se corten
+                // Límites seguros: 10% mínimo, 90% máximo (considerando el tamaño de la mesa)
+                $posX = (float)$m['posicion_x'];
+                $posY = (float)$m['posicion_y'];
+                
+                // Asegurar que estén dentro de límites seguros
+                $posX = max(10, min($posX, 90));
+                $posY = max(10, min($posY, 90));
             ?>
-            <form method="post" action="../proc/toggle_mesa.php" class="sala-mesa" data-id="<?= (int)$m['id_mesa'] ?>">
-                <!-- Campos ocultos para identificar sala y mesa -->
-                <input type="hidden" name="sala" value="<?= (int)$salaId ?>">
-                <input type="hidden" name="toggle" value="<?= (int)$m['id_mesa'] ?>">
-                <!-- Div con información de la mesa -->
-                <button type="submit" class="sala-mesaBtn <?= $estadoClass ?>" title="Cambiar estado">
-                    <div class="mesa-info">
-                        <div class="mesa-numero">Mesa #<?= (int)$m['id_mesa'] ?></div>
-                        <div class="mesa-sillas"><?= (int)$cap ?> sillas</div>
-                    </div>
-                </button>
-            </form>
+            <div class="sala-mesa draggable <?= $estadoClass ?>" 
+                 data-id="<?= (int)$m['id_mesa'] ?>"
+                 data-sala="<?= (int)$salaId ?>"
+                 style="left: <?= $posX ?>%; top: <?= $posY ?>%;">
+                <div class="mesa-info">
+                    <div class="mesa-numero">Mesa #<?= (int)$m['id_mesa'] ?></div>
+                    <div class="mesa-sillas"><?= (int)$cap ?> sillas</div>
+                    <div class="mesa-nombre"><?= htmlspecialchars($m['nombre'] ?? '') ?></div>
+                </div>
+                <form method="post" action="../proc/toggle_mesa.php" class="mesa-toggle-form">
+                    <input type="hidden" name="sala" value="<?= (int)$salaId ?>">
+                    <input type="hidden" name="toggle" value="<?= (int)$m['id_mesa'] ?>">
+                    <button type="submit" class="mesa-toggle-btn" title="Cambiar estado" onclick="event.stopPropagation();">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </form>
+            </div>
             <?php } ?>
         </div>
     </section>
     </div>
+
+    <!-- Script externo para drag and drop de mesas -->
+    <script src="../js/sala_drag_drop.js"></script>
 
     <!-- Pie de página -->
     <?php include '../includes/footer.php'; ?>
