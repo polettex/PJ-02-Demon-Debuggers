@@ -32,9 +32,7 @@ try {
 try {
     // Obtenemos todas las mesas de la sala usando la tabla de jerarquía
     $stmtMesas = $conn->prepare('
-        SELECT r.id_recurso as id_mesa, r.nombre, r.capacidad, r.estado, 
-               COALESCE(r.posicion_x, 50.00) as posicion_x, 
-               COALESCE(r.posicion_y, 50.00) as posicion_y
+        SELECT r.id_recurso as id_mesa, r.nombre, r.capacidad, r.estado
         FROM recursos r
         INNER JOIN recursos_jerarquia rh ON r.id_recurso = rh.id_recurso_hijo
         WHERE rh.id_recurso_padre = ? 
@@ -61,19 +59,8 @@ $libres = $total - $ocupadas;
 $bg = '../img/fondo_piedra.jpg';
 
 /* -------- LAYOUT -------- */
-// Definimos la clase CSS del layout según el tipo de sala
-$nombre = strtolower($sala['nombre']);
-if (in_array($nombre, ['patio 1','patio 2','patio 3'], true))
-    $layoutClass = 'layout--patio';
-elseif (in_array($nombre, ['comedor 1','comedor 2'], true)) 
-    $layoutClass = 'layout--comedor';
-elseif (in_array($nombre, ['privado 1','privado 2'], true)) 
-    $layoutClass = 'layout--priv12';
-elseif (in_array($nombre, ['privado 3','privado 4'], true)) 
-    $layoutClass = 'layout--priv34';
-else 
-    // Si no coincide, elegimos layout según número de mesas
-    $layoutClass = ($total === 1) ? 'layout--priv12' : (($total === 2) ? 'layout--priv34' : 'layout--patio');
+// Definimos la clase CSS del layout (ahora genérico)
+$layoutClass = 'layout--grid';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -81,8 +68,11 @@ else
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars($sala['nombre']) ?> — Demon Deburgers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="../css/styles.css">
-<link rel="stylesheet" href="../css/mesas_arrastrables.css">
 </head>
 <body class="body-restaurante sala-page">
     <div class="sala-layout">
@@ -145,24 +135,15 @@ else
     <!-- TABLERO: representación gráfica de las mesas -->
     <section class="sala-board <?= $layoutClass ?>" style="background-image:url('<?= htmlspecialchars($bg) ?>')">
         <div class="sala-canvas" id="salaCanvas">
-            <!-- Renderizamos cada mesa como un div arrastrable -->
+
+            <!-- Renderizamos cada mesa -->
             <?php foreach ($mesas as $m){
                 $cap = (int)$m['capacidad'];
                 $estadoClass = ($m['estado'] === 'ocupado') ? 'ocupado' : 'disponible';
-                
-                // Validar y corregir posiciones para evitar que se corten
-                // Límites seguros: 10% mínimo, 90% máximo (considerando el tamaño de la mesa)
-                $posX = (float)$m['posicion_x'];
-                $posY = (float)$m['posicion_y'];
-                
-                // Asegurar que estén dentro de límites seguros
-                $posX = max(10, min($posX, 90));
-                $posY = max(10, min($posY, 90));
             ?>
-            <div class="sala-mesa draggable <?= $estadoClass ?>" 
+            <div class="sala-mesa <?= $estadoClass ?>" 
                  data-id="<?= (int)$m['id_mesa'] ?>"
-                 data-sala="<?= (int)$salaId ?>"
-                 style="left: <?= $posX ?>%; top: <?= $posY ?>%;">
+                 data-sala="<?= (int)$salaId ?>">
                 <div class="mesa-info">
                     <div class="mesa-numero">Mesa #<?= (int)$m['id_mesa'] ?></div>
                     <div class="mesa-sillas"><?= (int)$cap ?> sillas</div>
@@ -171,7 +152,7 @@ else
                 <form method="post" action="../proc/toggle_mesa.php" class="mesa-toggle-form">
                     <input type="hidden" name="sala" value="<?= (int)$salaId ?>">
                     <input type="hidden" name="toggle" value="<?= (int)$m['id_mesa'] ?>">
-                    <button type="submit" class="mesa-toggle-btn" title="Cambiar estado" onclick="event.stopPropagation();">
+                    <button type="submit" class="mesa-toggle-btn" title="Cambiar estado">
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </form>
@@ -180,9 +161,6 @@ else
         </div>
     </section>
     </div>
-
-    <!-- Script externo para drag and drop de mesas -->
-    <script src="../js/sala_drag_drop.js"></script>
 
     <!-- Pie de página -->
     <?php include '../includes/footer.php'; ?>

@@ -792,20 +792,14 @@
 }
 
 /* Mesas (formularios) */
-.sala-page .sala-mesa {
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
+
 .sala-page .sala-mesaBtn {
   border: 3px solid #333;
-  cursor: pointer;
-  border-radius: 12px;
-  padding: 15px 20px;
-  min-width: 120px;
-  transition: all 0.3s ease;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
 }
+
+
+
+
 
 /* Estado disponible - verde */
 .sala-page .sala-mesaBtn.disponible {
@@ -849,108 +843,7 @@
   opacity: 0.95;
 }
 
-/* Posiciones por data-id */
-/* === PATIO (8 mesas, 4 columnas x 2 filas) === */
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(1) {
-  top: 18%;
-  left: 12%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(2) {
-  top: 18%;
-  left: 38%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(3) {
-  top: 18%;
-  left: 62%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(4) {
-  top: 18%;
-  left: 88%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(5) {
-  top: 78%;
-  left: 12%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(6) {
-  top: 78%;
-  left: 38%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(7) {
-  top: 78%;
-  left: 62%;
-}
-.sala-page .layout--patio .sala-canvas form.sala-mesa:nth-of-type(8) {
-  top: 78%;
-  left: 88%;
-}
 
-.sala-page .layout--patio .sala-mesaBtn {
-  width: 120px;
-}
-
-/* === COMEDOR (8 mesas, 4 columnas x 2 filas, mesas más anchas) === */
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(1) {
-  top: 20%;
-  left: 14%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(2) {
-  top: 20%;
-  left: 36%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(3) {
-  top: 20%;
-  left: 64%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(4) {
-  top: 20%;
-  left: 86%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(5) {
-  top: 80%;
-  left: 14%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(6) {
-  top: 80%;
-  left: 36%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(7) {
-  top: 80%;
-  left: 64%;
-}
-.sala-page .layout--comedor .sala-canvas form.sala-mesa:nth-of-type(8) {
-  top: 80%;
-  left: 86%;
-}
-
-.sala-page .layout--comedor .sala-mesaBtn {
-  width: 140px;
-}
-
-/* === PRIVADOS 1 y 2 (1 mesa grande horizontal centrada) === */
-.sala-page .layout--priv12 .sala-canvas form.sala-mesa:nth-of-type(1) {
-  top: 50%;
-  left: 50%;
-}
-
-.sala-page .layout--priv12 .sala-mesaBtn {
-  width: 200px;
-  min-width: 200px;
-}
-
-/* === PRIVADOS 3 y 4 (2 mesas largas verticales, centradas) === */
-.sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(1) {
-  top: 50%;
-  left: 30%;
-}
-.sala-page .layout--priv34 .sala-canvas form.sala-mesa:nth-of-type(2) {
-  top: 50%;
-  left: 70%;
-}
-
-/* más grandes que las de patio/comedor */
-.sala-page .layout--priv34 .sala-mesaBtn {
-  width: 160px;
-}
 
 /* ======================================
    RESPONSIVE
@@ -1874,5 +1767,82 @@
 
 .row a[style*="background-image"] .textorows {
   position: relative;
+}
+
+/* =========================================
+   ESTILOS PARA SALA (FLEXBOX GRID)
+   ========================================= */
+.sala-page .sala-canvas {
+    display: flex;
+    flex-direction: row; /* Explicitly set row direction */
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align to start */
+    align-content: flex-start;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+}
+
+.sala-page .sala-mesa {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 10px;
+    z-index: 10; /* Ensure visibility */
+}
+
+.sala-page .sala-mesa:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.sala-page .sala-mesa.ocupado {
+    background-color: rgba(231, 76, 60, 0.9); /* Red for occupied */
+    color: white;
+}
+
+.sala-page .sala-mesa.disponible {
+    background-color: rgba(46, 204, 113, 0.9); /* Green for available */
+    color: white;
+}
+
+.sala-page .mesa-info {
+    text-align: center;
+}
+
+.sala-page .mesa-numero {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.sala-page .mesa-sillas {
+    font-size: 0.9rem;
+}
+
+.sala-page .mesa-toggle-form {
+    margin-top: 10px;
+}
+
+.sala-page .mesa-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: inherit;
+    transition: transform 0.2s;
+}
+
+.sala-page .mesa-toggle-btn:hover {
+    transform: rotate(180deg);
 }
 

@@ -29,6 +29,10 @@ try {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestión de Trabajadores — Demon Deburgers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="../css/styles.css">
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -58,9 +62,9 @@ try {
             <?php if (isset($_GET['success'])): ?>
                 <div class="alert alert-success">
                     <?php
-                        if ($_GET['success'] == 'creado') echo "✓ Trabajador creado exitosamente";
-                        elseif ($_GET['success'] == 'actualizado') echo "✓ Trabajador actualizado exitosamente";
-                        elseif ($_GET['success'] == 'eliminado') echo "✓ Trabajador eliminado exitosamente";
+                        if ($_GET['success'] == 'creado') echo "Trabajador creado exitosamente";
+                        elseif ($_GET['success'] == 'actualizado') echo "Trabajador actualizado exitosamente";
+                        elseif ($_GET['success'] == 'eliminado') echo "Trabajador eliminado exitosamente";
                     ?>
                 </div>
             <?php endif; ?>
@@ -68,10 +72,10 @@ try {
             <?php if (isset($_GET['error'])): ?>
                 <div class="alert alert-error">
                     <?php
-                        if ($_GET['error'] == 'no_auto_editar') echo "✗ No puedes editarte a ti mismo";
-                        elseif ($_GET['error'] == 'no_auto_eliminar') echo "✗ No puedes eliminarte a ti mismo";
-                        elseif ($_GET['error'] == 'no_encontrado') echo "✗ Trabajador no encontrado";
-                        else echo "✗ Error al procesar la solicitud";
+                        if ($_GET['error'] == 'no_auto_editar') echo "No puedes editarte a ti mismo";
+                        elseif ($_GET['error'] == 'no_auto_eliminar') echo "No puedes eliminarte a ti mismo";
+                        elseif ($_GET['error'] == 'no_encontrado') echo "Trabajador no encontrado";
+                        else echo "Error al procesar la solicitud";
                     ?>
                 </div>
             <?php endif; ?>
