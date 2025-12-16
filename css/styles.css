@@ -1590,7 +1590,7 @@
   margin-bottom: 1rem;
 }
 
-.btn-new-user {
+  .btn-new-user {
   display: block;
   width: 100%;
   padding: 0.75rem 1rem;
@@ -1598,6 +1598,129 @@
   color: #fff;
   text-decoration: none;
   border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.btn-new-user:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+}
+
+/* ======================================
+   RESPONSIVE FORMS & GRIDS
+====================================== */
+
+/* Mesas Grid (Reservas) */
+.mesas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.mesa-option {
+  display: block;
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+
+.mesa-option:hover {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border-color: #d4af37 !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .trabajadores-container {
+    grid-template-columns: 1fr; /* Stack sidebar and content */
+    gap: 1.5rem;
+  }
+  
+  .trabajadores-sidebar {
+    position: static; /* Remove sticky on mobile */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .trabajadores-list-section {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow */
+  }
+}
+
+@media (max-width: 768px) {
+  .trabajadores-container {
+    padding: 1rem;
+  }
+  
+  .trabajadores-sidebar,
+  .trabajadores-list-section {
+    padding: 1.5rem;
+  }
+  
+  .trabajadores-title {
+    font-size: 1.5rem;
+  }
+  
+  .trabajadores-subtitle {
+    font-size: 1.3rem;
+  }
+  
+  /* Force table scroll */
+  .trabajadores-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .trabajadores-table {
+    min-width: 600px; /* Ensure table has minimum width to trigger scroll */
+  }
+  
+  .trabajadores-table th,
+  .trabajadores-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+    white-space: nowrap; /* Prevent wrapping in cells */
+  }
+
+  /* Form adjustments */
+  .form-reserva .form-group {
+    width: 100%;
+  }
+  
+  .mesas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .actions-cell {
+    flex-direction: row; /* Keep actions in row if possible, or wrap */
+  }
+}
+
+@media (max-width: 480px) {
+  .trabajadores-sidebar,
+  .trabajadores-list-section {
+    padding: 1rem;
+  }
+
+  .btn-new-user {
+    font-size: 0.9rem;
+  }
+
+  .mesas-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns on very small screens */
+  }
+}
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   font-size: 0.95rem;

@@ -1,87 +1,93 @@
-#  Demon Deburgers – Gestión de Mesas
+# Demon Deburgers – Gestión de Reservas y Recursos
 
-Aplicación web para la gestión de mesas en un restaurante, diseñada para optimizar el trabajo de los camareros y mantener un registro completo de la ocupación de las mesas en tiempo real.
-
----
-
-##  Estructura del restaurante
-
-### Sales disponibles
-- **3** terrazas  
-- **2** comedores  
-- **4** salas privadas  
-
-### Distribución
-La distribución de las mesas es **libre**, definida por los miembros del grupo.  
-Cada sala puede tener un **número variable de mesas** y **capacidades distintas**.
-
-### Información de cada mesa
-- Número o identificador único  
-- Capacidad (número de sillas)  
-- Sala donde se encuentra  
+Aplicación web integral para la gestión de un restaurante, que permite la administración de usuarios, recursos (salas y mesas), y la gestión avanzada de reservas tanto en tiempo real como anticipadas.
 
 ---
 
-##  Funcionalidades de la aplicación
+## 🚀 Funcionalidades Principales
 
-###  Login / Logout de camareros
-- Los camareros **ya existen** en la base de datos.
-- No es necesario dar de alta ni baja.
-- Cada acción queda **registrada** con el identificador del camarero.
+### 1. Gestión de Reservas (Camareros)
 
-###  Gestión de mesas
-- Estado: **libre** o **ocupada**
-- El camarero puede:
-  - Marcar una mesa como **ocupada** cuando llega un cliente.
-  - Marcar la mesa como **libre** cuando el cliente se marcha.
+- **Reservas Anticipadas:** Creación de reservas para fechas y horas futuras.
+- **Ocupación en Tiempo Real:** Marcar mesas como ocupadas/libres al instante.
+- **Validación:** Control de aforo y disponibilidad de mesas para evitar conflictos.
+- **Historial:** Registro detallado de todas las ocupaciones y reservas pasadas.
 
-###  Visualización
-- Lista de **salas** con su capacidad total.
-- Disponibilidad de mesas **en tiempo real**.
-- Capacidad individual de cada mesa.
+### 2. Administración (Gerentes/Admin)
 
-###  Histórico de ocupaciones
-Se almacena:
-- Hora y día de ocupación  
-- Hora y día de liberación  
-- Camarero responsable  
+- **CRUD de Usuarios:**
+  - Crear, leer, actualizar y eliminar usuarios.
+  - Asignación de roles (Camarero, Gerente, Mantenimiento, Admin).
+- **CRUD de Recursos:**
+  - Gestión de Salas y Mesas.
+  - Asignación de imágenes a las salas.
+  - Control de capacidad y estado.
 
-Filtros disponibles:
-- Por recurso (**mesa concreta**)  
-- Por sala / ubicación  
+### 3. Características Técnicas
 
-Esto permite analizar la **frecuencia de uso de cada mesa**.
-
+- **Base de Datos:** MySQL con estructura relacional optimizada.
+- **Backend:** PHP puro con PDO para conexiones seguras.
+- **Frontend:** HTML5, CSS3 (Diseño Responsivo), JavaScript.
+- **Alertas:** Integración con SweetAlert2 para notificaciones amigables.
+- **Seguridad:** Contraseñas encriptadas con BCRYPT.
 
 ---
 
-## Flujo de uso
+## 📂 Estructura del Proyecto
 
-1. El camarero hace **login**.  
-2. Consulta las **salas y mesas disponibles**.  
-3. Marca una mesa como **ocupada** → se registra `hora_inici` y camarero.  
-4. Cuando el cliente se marcha, marca la mesa como **libre** → se registra `hora_final`.  
-5. El sistema actualiza la disponibilidad y guarda el **histórico completo**.
+- `bbdd/`: Scripts SQL para la creación y población de la base de datos.
+- `css/`: Estilos CSS para el diseño responsivo y moderno.
+- `img/`: Imágenes de recursos y assets gráficos.
+- `includes/`: Archivos PHP reutilizables (conexión, cabecera, footer).
+- `js/`: Scripts JavaScript para validaciones y lógica cliente.
+- `proc/`: Scripts PHP de procesamiento (lógica de negocio).
+- `views/`: Vistas de la aplicación (páginas visibles para el usuario).
 
+---
 
+## 🛠️ Instalación y Configuración
 
+1. **Clonar el repositorio:**
 
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   ```
 
-## Enlaces de interés
+2. **Configurar la Base de Datos:**
 
-Figma: https://www.figma.com/design/BaIVlSJViiAF9nroV4T9hF/P01?node-id=0-1&t=edQZgT8nqUyiADvB-1
+   - Importar el archivo `bbdd/bbdd4.sql` en tu servidor MySQL.
+   - Verificar la configuración de conexión en `includes/conexion.php`.
 
-Contrato de compromiso de equipo: https://drive.google.com/file/d/1zTnWaQllUZQFd7wy7b1I2ncv0W-tJ8IP/view?usp=drive_link
+3. **Ejecutar la aplicación:**
+   - Colocar el proyecto en el directorio raíz de tu servidor web (ej. `www` o `htdocs`).
+   - Acceder desde el navegador a `http://localhost/PROYECTO2/PJ-02-Demon-Debuggers/`.
 
-Diagrama de gantt: https://docs.google.com/spreadsheets/d/1KOelFm3tKgIu0rdXoAM72R66sy920d7DnjyXl0VxK2w/edit?usp=sharing
+---
 
-Daily Scrum: https://docs.google.com/spreadsheets/d/1kwmFBOp1JPYDCxmtgtz83MG2hQloYtLE/edit?usp=sharing&ouid=115030546778315437875&rtpof=true&sd=true
+## 👤 Usuarios de Prueba
 
-Diagrama relacional: https://drive.google.com/file/d/1HOngSmuo2rHsETW8u6aFDoO8863JrBUR/view?usp=drive_link
+| Rol               | Usuario          | Contraseña  |
+| :---------------- | :--------------- | :---------- |
+| **Administrador** | `admin`          | `qazQAZ123` |
+| **Gerente**       | `gerente`        | `qazQAZ123` |
+| **Mantenimiento** | `mantenimiento1` | `qazQAZ123` |
+| **Camarero**      | `camarero1`      | `qazQAZ123` |
 
-BBDD: https://docs.google.com/spreadsheets/d/15XZbBm_P7VpquNPqNV6gOc-d1dVXx_Qx/edit?usp=drive_link&ouid=111248879625368351140&rtpof=true&sd=true 
+---
 
-Diagrama de flujo: https://drive.google.com/file/d/1ONegD5h8rna508jDCTXXuAVTjXOmAIua/view?usp=drive_link
+## 📊 Estructura de la Base de Datos
 
-Contenido grafico de nuestro proyecto: https://drive.google.com/drive/folders/1MbPNLAJj6mKtVcSga4L4_vp1kNlrQ40G?usp=drive_link
+- **usuarios:** Almacena credenciales y roles.
+- **roles:** Define los niveles de acceso.
+- **recursos:** Salas y mesas con sus propiedades (capacidad, estado, imagen).
+- **recursos_jerarquia:** Relaciona mesas con sus respectivas salas.
+- **reservas:** Registro de reservas futuras y ocupaciones pasadas.
 
+---
+
+## 📱 Diseño Responsivo
+
+La aplicación está diseñada para adaptarse a diferentes dispositivos:
+
+- **Escritorio:** Vista completa con paneles laterales y tablas detalladas.
+- **Móvil/Tablet:** Diseño adaptado con menús accesibles y tablas con desplazamiento horizontal para facilitar el uso en movimiento por parte de los camareros.

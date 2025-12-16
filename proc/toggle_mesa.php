@@ -38,7 +38,7 @@ if ($salaId <= 0 || $mesaId <= 0) {
 try {
     // Consulta para obtener el estado actual del recurso mesa y verificar que pertenece a la sala
     $stmt = $conn->prepare('
-        SELECT r.estado 
+        SELECT r.estado, r.capacidad 
         FROM recursos r
         INNER JOIN recursos_jerarquia rh ON r.id_recurso = rh.id_recurso_hijo
         WHERE r.id_recurso = ? 
@@ -86,11 +86,12 @@ try {
         // Solo insertar una nueva reserva si NO hay ninguna abierta
         if ((int)$chk->fetchColumn() === 0) {
             $ins = $conn->prepare('
-                INSERT INTO reservas (id_usuario, id_recurso, fecha, hora_inicio, hora_final)
-                VALUES (?, ?, CURDATE(), CURTIME(), NULL)
+                INSERT INTO reservas (id_usuario, id_recurso, fecha, hora_inicio, hora_final, nombre_cliente, personas)
+                VALUES (?, ?, CURDATE(), CURTIME(), NULL, "Cliente Casual", ?)
             ');
             // Guarda la reserva con fecha y hora de inicio actual y sin hora de fin
-            $ins->execute([$idUsuario, $mesaId]);
+            // Usamos la capacidad de la mesa como valor por defecto para personas
+            $ins->execute([$idUsuario, $mesaId, $mesa['capacidad']]);
         }
     } else {
         // Si pasa a "libre":

@@ -141,7 +141,8 @@ $mesasParaSelect = $stmtMesasSel->fetchAll(PDO::FETCH_COLUMN);
                         INNER JOIN recursos_jerarquia rh ON mesa.id_recurso = rh.id_recurso_hijo
                         INNER JOIN recursos sala ON rh.id_recurso_padre = sala.id_recurso
                         INNER JOIN usuarios u ON res.id_usuario = u.id_usuario
-                        WHERE mesa.tipo = 'mesa' AND sala.tipo = 'sala'"; // condición base
+                        WHERE mesa.tipo = 'mesa' AND sala.tipo = 'sala'
+                        AND res.nombre_cliente = 'Cliente Casual'"; // condición base
 
                 $params = [];
 

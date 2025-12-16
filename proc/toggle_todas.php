@@ -83,7 +83,7 @@ try {
 
         // Insertar reservas si no existen
         $stmtMesas = $conn->prepare('
-            SELECT r.id_recurso 
+            SELECT r.id_recurso, r.capacidad 
             FROM recursos r
             INNER JOIN recursos_jerarquia rh ON r.id_recurso = rh.id_recurso_hijo
             WHERE rh.id_recurso_padre = ? 
@@ -98,10 +98,10 @@ try {
             $chk->execute([$mesaId]);
             if ((int)$chk->fetchColumn() === 0) {
                 $ins = $conn->prepare('
-                    INSERT INTO reservas (id_usuario, id_recurso, fecha, hora_inicio, hora_final) 
-                    VALUES (?, ?, CURDATE(), CURTIME(), NULL)
+                    INSERT INTO reservas (id_usuario, id_recurso, fecha, hora_inicio, hora_final, nombre_cliente, personas) 
+                    VALUES (?, ?, CURDATE(), CURTIME(), NULL, "Cliente Casual", ?)
                 ');
-                $ins->execute([$idUsuario, $mesaId]);
+                $ins->execute([$idUsuario, $mesaId, $m['capacidad']]);
             }
         }
     }

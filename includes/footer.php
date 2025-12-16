@@ -13,6 +13,9 @@
   <a href="../views/restaurante.php" class="icon-footer">
     <i class="fas fa-chevron-left"></i>
   </a>
+  <a href="../views/reservas.php" class="icon-footer" title="Reservas Anticipadas">
+    <i class="fas fa-calendar-alt"></i>
+  </a>
   <?php if (isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == 4): ?>
   <a href="../views/trabajadores.php" class="icon-footer" title="Gestión de Trabajadores">
     <i class="fas fa-user-cog"></i>
